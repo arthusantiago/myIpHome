@@ -84,3 +84,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * });
  * ```
  */
+
+$routes->scope('/api', function (RouteBuilder $builder) {
+    // No $builder->applyMiddleware() here.
+    // Connect API actions here.
+});
