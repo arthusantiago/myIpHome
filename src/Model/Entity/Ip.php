@@ -9,9 +9,9 @@ use Cake\ORM\Entity;
  * Ip Entity
  *
  * @property int $id
- * @property string $ipAddress
+ * @property string|null $ip
  * @property \Cake\I18n\FrozenTime|null $created
- * @property \Cake\I18n\FrozenTime|null $updated
+ * @property \Cake\I18n\FrozenTime|null $modified
  */
 class Ip extends Entity
 {
@@ -25,8 +25,8 @@ class Ip extends Entity
      * @var array
      */
     protected $_accessible = [
-        'ipAddress' => true,
+        'ip' => true,
         'created' => true,
-        'updated' => true,
+        'modified' => true,
     ];
 }

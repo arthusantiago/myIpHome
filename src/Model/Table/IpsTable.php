@@ -58,9 +58,9 @@ class IpsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('ipAddress')
-            ->requirePresence('ipAddress', 'create')
-            ->notEmptyString('ipAddress');
+            ->scalar('ip')
+            ->maxLength('ip', 20)
+            ->allowEmptyString('ip');
 
         return $validator;
     }

@@ -18,9 +18,9 @@ class IpsFixture extends TestFixture
     // phpcs:disable
     public $fields = [
         'id' => ['type' => 'smallinteger', 'length' => 5, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null],
-        'ipAddress' => ['type' => 'string', 'length' => null, 'default' => null, 'null' => false, 'collate' => null, 'comment' => null, 'precision' => null],
+        'ip' => ['type' => 'string', 'length' => 20, 'default' => null, 'null' => true, 'collate' => null, 'comment' => null, 'precision' => null],
         'created' => ['type' => 'timestampfractional', 'length' => null, 'default' => null, 'null' => true, 'comment' => null, 'precision' => 6],
-        'updated' => ['type' => 'timestampfractional', 'length' => null, 'default' => null, 'null' => true, 'comment' => null, 'precision' => 6],
+        'modified' => ['type' => 'timestampfractional', 'length' => null, 'default' => null, 'null' => true, 'comment' => null, 'precision' => 6],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -36,9 +36,9 @@ class IpsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'ipAddress' => 'Lorem ipsum dolor sit amet',
-                'created' => 1595904141,
-                'updated' => 1595904141,
+                'ip' => 'Lorem ipsum dolor ',
+                'created' => 1595990522,
+                'modified' => 1595990522,
             ],
         ];
         parent::init();
