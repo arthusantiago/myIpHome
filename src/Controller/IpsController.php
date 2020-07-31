@@ -4,43 +4,35 @@ declare(strict_types=1);
 namespace App\Controller;
 
 class IpsController extends AppController
-{
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->loadComponent('RequestHandler');
-    }
-    
+{   
 
     public function index()
     {
-        $ips = $this->Ips->find('all');
-        $ips = $ips->toArray();
-        $this->set('ips');
-        //$this->viewBuilder()->setOption('serialize', 'ips');
+        $query = $this->Ips->find('all');
+        $dados = $query->toArray();
+        $this->set(compact('dados'));
     }
-
     
+
     public function view($id = null)
     {
         $ip = $this->Ips->get($id);
-        $this->viewBuilder()->setOption('serialize', ['ip']);
+        $this->set( compact('ip'));
     }
 
-   
+
     public function add()
     {
         $this->request->allowMethod(['post', 'put']);
         $ip = $this->Ips->newEmptyEntity();
         $ip = $this->Ips->patchEntity($ip, $this->request->getData());
-        
         if ($this->Ips->save($ip)) {
-            $message = 'Saved';
+            $codigoHTTP = '201';
         } else {
-            $message = 'Error';
+            $codigoHTTP = '500';
         }
-        $this->viewBuilder()->setOption('serialize',['message']);
+        $this->set(compact('codigoHTTP'));
+
     }
 
     
