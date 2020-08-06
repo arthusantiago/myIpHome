@@ -8,6 +8,7 @@ class IpsController extends AppController
 
     public function index()
     {
+        $this->request->allowMethod(['get']);
         $query = $this->Ips->find('all');
         $dados = $query->toArray();
         $this->set(compact('dados'));
@@ -16,54 +17,53 @@ class IpsController extends AppController
 
     public function view($id = null)
     {
+        $this->request->allowMethod(['get']);
         $ip = $this->Ips->get($id);
-        $this->set( compact('ip'));
+        $this->set(compact('ip'));
     }
 
 
     public function add()
     {
-        $this->request->allowMethod(['post', 'put']);
+        $this->request->allowMethod(['post']);
         $ip = $this->Ips->newEmptyEntity();
         $ip = $this->Ips->patchEntity($ip, $this->request->getData());
-        if ($this->Ips->save($ip)) {
-            $codigoHTTP = '201';
+        $salvo = $this->Ips->save($ip);
+        if ($salvo) {
+            $mensagem = 'Salvo com sucesso.';
+            $this->set(['IpSalvo' => $salvo, 'mensagem' => $mensagem]);
         } else {
-            $codigoHTTP = '500';
+            $mensagem = 'Erro ao editar';
+            $this->set(['mensagem' => $mensagem]);
         }
-        $this->set(compact('codigoHTTP'));
 
     }
 
     
-    public function edit($id = null)
+    public function edit($id=null)
     {
-        $ip = $this->Ips->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $ip = $this->Ips->patchEntity($ip, $this->request->getData());
-            if ($this->Ips->save($ip)) {
-                $this->Flash->success(__('The ip has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The ip could not be saved. Please, try again.'));
+        $this->request->allowMethod(['put']);
+        $ip = $this->Ips->get($id);
+        $ip = $this->Ips->patchEntity($ip, $this->request->getData());
+        $salvo = $this->Ips->save($ip);
+        if ($salvo) {
+            $mensagem = 'Editado com sucesso.';
+            $this->set(['IpEditado' => $salvo, 'mensagem' => $mensagem]);
+        } else {
+            $mensagem = 'Erro ao editar';
+            $this->set(['mensagem' => $mensagem]);
         }
-        $this->set(compact('ip'));
     }
 
    
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['delete']);
         $ip = $this->Ips->get($id);
-        if ($this->Ips->delete($ip)) {
-            $this->Flash->success(__('The ip has been deleted.'));
-        } else {
-            $this->Flash->error(__('The ip could not be deleted. Please, try again.'));
+        $mensagem = 'Deletado com sucesso.';
+        if (!$this->Ips->delete($ip)) {
+            $mensagem = 'Erro ao deletar.';
         }
-
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('mensagem'));
     }
 }
