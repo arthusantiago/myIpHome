@@ -27,7 +27,7 @@ class IpsController extends AppController
     {
         $this->request->allowMethod(['post']);
         $ip = $this->Ips->newEmptyEntity();
-        $ip = $this->Ips->patchEntity($ip, $this->request->getData());
+        $ip->ip = $_SERVER['REMOTE_ADDR'];
         $salvo = $this->Ips->save($ip);
         if ($salvo) {
             $mensagem = 'Salvo com sucesso.';
@@ -36,7 +36,6 @@ class IpsController extends AppController
             $mensagem = 'Erro ao editar';
             $this->set(['mensagem' => $mensagem]);
         }
-
     }
 
     
