@@ -65,4 +65,9 @@ class IpsController extends AppController
         }
         $this->set(compact('mensagem'));
     }
+
+    public function getUltimoIp(){
+        $query = $this->Ips->find('all', ['order' => ['id' => 'DESC']]);
+        return $query->first();
+    }
 }
