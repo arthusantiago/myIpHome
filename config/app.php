@@ -3,7 +3,6 @@
 use Cake\Cache\Engine\FileEngine;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
-use Cake\Database\Driver\Postgres;
 use Cake\Error\ExceptionRenderer;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
@@ -18,7 +17,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
+    'debug' => true,
 
     /*
      * Configure basic information about the application.
@@ -77,7 +76,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT'),
+        'salt' => 'askufwiunivcsudnkfwkneui290309jnzxse',
     ],
 
     /*
@@ -290,26 +289,12 @@ return [
             'className' => Connection::class,
             'driver' => Mysql::class,
             'persistent' => false,
-            'timezone' => 'UTC',
             'host' => 'localhost',
-            'username' => 'myiphome',
+            'username' => 'avdseti_myiphome',
             'password' => 'myiphomeqwe123',
-            'database' => 'myIpHome',
-
-            /**
-             * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support, in CakePHP 3.6
-             */
-            //'encoding' => 'utf8mb4',
-
-            /**
-             * If your MySQL server is configured with `skip-character-set-client-handshake`
-             * then you MUST use the `flags` config to set your charset encoding.
-             * For e.g. `'flags' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4']`
-             */
-            'flags' => [],
-            'cacheMetadata' => true,
-            'log' => false,
-
+            'database' => 'avdseti_myIpHome',
+            'encoding' => 'utf8mb4',
+            'timezone' => 'UTC',
             /*
              * Set identifier quoting to true if you are using reserved words or
              * special characters in your table or column names. Enabling this
@@ -319,6 +304,9 @@ return [
              * manipulated before being executed.
              */
             'quoteIdentifiers' => false,
+            'flags' => [],
+            'cacheMetadata' => true,
+            'log' => false,
 
             /*
              * During development, if using MySQL < 5.6, uncommenting the
@@ -334,12 +322,18 @@ return [
          * The test connection is used during the test suite.
          */
         'test' => [
+
             'className' => Connection::class,
-            'driver' => Postgres::class,
+            'driver' => Mysql::class,
             'persistent' => false,
             'timezone' => 'UTC',
             //'encoding' => 'utf8mb4',
             'flags' => [],
+            'host' => 'localhost',
+            'database' => 'myiphome',
+            'username' => 'root',
+            'password' => 'qwe123@!',
+            'port' => '3306',
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
             'log' => false,
