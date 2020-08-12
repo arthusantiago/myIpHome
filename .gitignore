@@ -6,6 +6,15 @@
 /tmp/*
 /vendor/*
 
+# Arquivos especificos do servidor de produção #
+##########################
+/.user.ini
+/composer.phar
+/error_log
+/php.ini
+/salomao
+/webroot/error_log
+
 # OS generated files #
 ######################
 .DS_Store
