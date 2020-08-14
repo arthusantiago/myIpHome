@@ -22,7 +22,12 @@ class IpsController extends AppController
         $this->set(compact('ip'));
     }
 
-
+    /**
+     * A maginca acontece aqui. 
+     * Eu salvo o IP da origem da request que chega. 
+     *
+     * @return O IP salvo
+     */
     public function add()
     {
         $this->request->allowMethod(['post']);
