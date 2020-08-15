@@ -290,9 +290,9 @@ return [
             'driver' => Mysql::class,
             'persistent' => false,
             'host' => 'localhost',
-            'username' => 'root',
-            'password' => 'qwe123@!',
-            'database' => 'myiphome',
+            'username' => 'avdseti_myiphome',
+            'password' => 'myiphomeqwe123',
+            'database' => 'avdseti_myIpHome',
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             /*
