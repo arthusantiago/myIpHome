@@ -1,53 +1,48 @@
-# CakePHP Application Skeleton
+# MyIpHome[Gama] - O que é ?
+Imagine que você tem um servidor em casa e precisa acessar externamente ele ou algum serviço dele. 
+Sua operadora de internet sempre troca o ip de WAN e você precisa pedir para alguém da sua casa acessar o [meuip.com.br](http://meuip.com.br/) para descobrir o seu IP externo.
 
-[![Build Status](https://img.shields.io/github/workflow/status/cakephp/app/CakePHP%20App%20CI/master?style=flat-square)](https://github.com/cakephp/app/actions)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+O myIpHome faz isso pra você automaticamente.
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 4.x.
+#  Como funciona ?
+Dentro do seu server caseiro, na CRON, fica rodando o script que dispara uma requisição  de X em X minutos/horas/* para o MyIpHome, que precisa estar rodando em alguma maquina externa, por exemplo em seu subdomínio **myip.meudominio.eti.br**. Quando essa requisição chega, é extraído o IP de origem e catapimba !!!! Temos seu ip de WAN.
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+Esse IP é exibido em uma tabela.
 
-## Installation
+É simples mesmo! 
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+# O que usa ?
+- [PHP](https://www.php.net/)
+- Seu banco de dados preferido (por que usamos migrations)
+- Framework [CakePHP v4](https://book.cakephp.org/4/en/installation.html)
+- [CURL](https://curl.haxx.se/docs/manual.html) ou qualquer outra ferramenta semelhante de sua preferência.
 
-If Composer is installed globally, run
+# Como faz pra rodar
+## No seu server externo
+Sim ! Você precisa de alguma maquina externa pra rodar o MIH
+Nessa maquina você instala o MIH.
 
+## No seu server caseiro 
+No server caseiro insira na CRON o comando que gera a requisição, exemplo:
 ```bash
-composer create-project --prefer-dist cakephp/app
+curl -d "{'':''}" http://myiphome.meudominio.eti.br/api/ips.json
 ```
+No lugar do *myiphome.meudominio.eti.br* substitua por seu dominio ou IP da maquina externa.
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+Um exemplo de aplicação usando  a ferramenta [crontab](https://pt.wikipedia.org/wiki/Crontab):
 
+Editando a cron:
 ```bash
-composer create-project --prefer-dist cakephp/app myapp
+crontab -e
 ```
-
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
-
+Adicionando o script;
 ```bash
-bin/cake server -p 8765
+*/5 * * * * curl -d "{'':''}" http://myiphome.meudominio.eti.br/api/ips.json
 ```
+O comando será executado de 5 em 5 minutos (*/5), todos os dias da semana e mês.
 
-Then visit `http://localhost:8765` to see the welcome page.
+Uma dica: Você precisa criar redirecionamento de portas ou DMZ no seu rodeador para o seu server de casa.
 
-## Update
-
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
-
-## Configuration
-
-Read and edit the environment specific `config/app_local.php` and setup the 
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
-
-## Layout
-
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+#  ATENÇÃO !
+Essa é uma ferramenta que pode contar falhas de segurança. Ainda está em desenvolvimento e falta muuuito para ser considerada estável e segura.
+ Como ainda estou desenvolvendo, muitas coisas podem mudar mas o principio é o apresentado nos tópicos acima.
