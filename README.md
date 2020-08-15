@@ -20,7 +20,7 @@ Esse IP é exibido em uma tabela.
 # Como faz pra rodar
 ## No seu server externo
 Sim ! Você precisa de alguma maquina externa pra rodar o MIH
-Nessa maquina você instala o MIH.
+Nessa maquina você deve subir/clonar o MIH. Lembre de instalar as dependências via composer.
 
 ## No seu server caseiro 
 No server caseiro insira na CRON o comando que gera a requisição, exemplo:
